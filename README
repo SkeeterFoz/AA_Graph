@@ -1,1 +1,34 @@
-Teste
+Trabalho de Análise de Algoritmos
+Algoritmos de Grafos
+           
+	                                        
+Identificação do Sistema
+
+- Autores:
+      Igor Henrique da Cruz (spym4n@gmail.com)
+      Newton Muchael José (skeeterfoz@hotmail.com)
+
+- Versão: 1.0
+- Sistema Operacional: GNU/Linux
+- Interface de Desenvolvimento: Eclipse Ganymede
+
+1 Objetivo do Sistema
+
+	- Carregar os dados referentes ao grado de um arquivos texto e possibilitar a realização de operações neste grafo.
+
+2 Restrições
+
+        - Cada linha dos arquivos devem conter no máximo 255 caracteres.
+	- Os arquivos não podem estar vazios;
+	- Não teclar caracteres especiais;
+	
+3 Especificações Gerais     
+
+3.1 Estruturas e bibliotecas:
+	A interface apresenta uma tela com as opções de entrada de dados possíveis para cada etapa do programa;
+        
+3.2 Interface         
+
+	  A interface foi feita utilizando bibliotecas padrão do gcc. (não foi finalizada)
+          o executavel do programa esta no diretório dist dentro ta pasta do projeto. 
+ 
