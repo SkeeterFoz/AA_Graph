@@ -25,7 +25,8 @@ public class Main {
 			io.Read();
 			
 			Parser parser = new Parser(io.getV(), io.getN());
-			parser.printGraph(io.getN());
+			parser.getGrafo().printGraph();
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
