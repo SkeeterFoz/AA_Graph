@@ -63,4 +63,10 @@ public class Graph {
 			System.out.println(" ");
 		}
 	}
+	
+//	public byte[] getAdj(int i) {
+//		byte[] adj = new byte[this.nlc];
+//		
+//		return adj;
+//	}
 }
