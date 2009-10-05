@@ -1,4 +1,6 @@
-package controller;
+package utils;
+
+import java.util.ArrayList;
 
 import model.Graph;
 
@@ -37,13 +39,34 @@ public class DepthFirstSearch {
 	
 	private int timestamp;
 	
+	/**
+	 * Boolean que determina se será adicionado os elementos em uma lista
+	 * ao calcular o tempo de termino (utilizado na Ordenação Topológica)
+	 */
+	private boolean listTermino;
+	
+	private ArrayList<Integer> lista;
+	
+	private boolean temCiclo;
+	private boolean doListaCiclo;
+	
+	private ArrayList<Integer> ciclo;
+	
 	public DepthFirstSearch(Graph grafo) {
 		this.grafo = grafo;
 		this.dfs = new int[grafo.getNlc()][4];
-		
+		this.listTermino = false;
+		this.temCiclo = false;
+		this.ciclo = null;
+		this.doListaCiclo = false;
 		timestamp = 0;
-		
+	}
+
+	public void run() {
 		for (int i = 0; i < grafo.getNlc(); i++) {
+			if (this.doListaCiclo && !this.temCiclo) {
+				this.ciclo.clear();
+			}
 			if (this.dfs[i][COR] == BRANCO) 	//Se a cor do vértice for branco 
 				DFS_Visit(i);
 		}
@@ -53,16 +76,26 @@ public class DepthFirstSearch {
 		this.dfs[u][COR] = CINZA;
 		this.dfs[u][DESCOBERTA] = ++timestamp;
 		
+		if (!this.temCiclo)
+			this.ciclo.add(u);
+		
 		for (int i = 0; i < grafo.getNlc(); i++) {
 			if (grafo.getElement(u, i) == 1) {
 				if (this.dfs[i][COR] == BRANCO) {
 					this.dfs[i][PREDECESSOR] = u;
 					DFS_Visit(i);
+				} else if ((this.dfs[i][COR] == CINZA) && !this.temCiclo) {
+					this.ciclo.add(i);
+//					if (this.ciclo.size() > 2)
+//							this.temCiclo = true;
 				}
 			}
 		}
 		this.dfs[u][COR] = PRETO;
 		this.dfs[u][TERMINO] = ++timestamp;
+		if (this.listTermino) {
+			this.lista.add(0, u);
+		}
 	}
 	
 	public int[] getTermino() {
@@ -71,5 +104,35 @@ public class DepthFirstSearch {
 			result[i] = this.dfs[i][TERMINO];
 		
 		return result;
+	}
+	
+	public void doListaTermino(boolean lista) {
+		this.listTermino = lista;
+		if (this.listTermino) {
+			this.lista = new ArrayList<Integer>();
+		} else {
+			this.lista = null;
+		}
+	}
+	
+	public void doListaCiclo(boolean ciclo) {
+		this.doListaCiclo = ciclo;
+		if (this.doListaCiclo) {
+			this.ciclo = new ArrayList<Integer>();
+		} else {
+			this.ciclo = null;
+		}
+	}
+	
+	public ArrayList<Integer> getListaTermino() {
+		return this.lista;
+	}
+	
+	public ArrayList<Integer> getCiclo() {
+		return this.ciclo;
+	}
+	
+	public boolean temCiclo() {
+		return this.temCiclo;
 	}
 }

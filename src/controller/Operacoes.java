@@ -1,6 +1,9 @@
 package controller;
 
+import java.util.ArrayList;
+
 import model.Graph;
+import utils.DepthFirstSearch;
 
 public class Operacoes {
 
@@ -19,33 +22,28 @@ public class Operacoes {
 		} else return false;
 	}
 	
-	public static int[] OrdenacaoTopologica(Graph grafo) {
+	public static ArrayList<Integer> OrdenacaoTopologica(Graph grafo) {
 		DepthFirstSearch dfs = new DepthFirstSearch(grafo);
-		int[] termino = dfs.getTermino();
-		int[] result = new int[grafo.getNlc()];
+		dfs.doListaTermino(true);
 		
-		for (int i = 0; i < grafo.getNlc(); i++)
-			System.out.println("Vertice " + i + ":\t" + termino[i]);
-		
+		dfs.run();
+		ArrayList<Integer> result = dfs.getListaTermino();
+
 		return result;
 	}
 	
-	//TODO arruma a ordenao pra ordenacao topologica
-	public static void bubbleSort(int[] a) {
-		for (int i = 0; i < a.length-1; i++) {
-			for (int j = 0; j < a.length-1; j++) {
-				if (a[j] > a[j+1]) {
-					swap(a, j, j+1);
+	public static Graph FechoTransitivo(Graph grafo) {
+		Graph resultado = new Graph(grafo.getNlc());
+		resultado.setMatriz(grafo.getMatriz());
+		
+		for (int i = 0; i < resultado.getNlc(); i++)
+			for (int j = 0; j < resultado.getNlc(); j++) {
+				for (int k = 0; k < resultado.getNlc(); k++) {
+					if ((resultado.getElement(j, i) == 1) && (resultado.getElement(i, k) == 1)) {
+						resultado.setElement(j, k, 2);
+					}
 				}
 			}
-		}
+		return resultado;		
 	}
-
-	private static void swap(int[] a, int i, int j) {
-		int temp = a[i];
-		a[i] = a[j];
-		a[j] = temp;
-	}
-
-	
 }

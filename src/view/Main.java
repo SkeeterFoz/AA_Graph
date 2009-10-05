@@ -1,6 +1,7 @@
 package view;
 
 import java.io.IOException;
+
 import model.Graph;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.awt.SWT_AWT;
@@ -23,6 +24,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import controller.IOFile;
+import controller.Operacoes;
 import controller.Parser;
 
 /**
@@ -204,7 +206,6 @@ public class Main {
 					}
 				});
 				
-			
 			Group groupDigrafo = new Group(fakeComposite, SWT.SHADOW_IN);
 			groupDigrafo.setText("        Algoritmos Dígrafo       ");
 			groupDigrafo.setLayout(new RowLayout(SWT.VERTICAL));
@@ -213,7 +214,7 @@ public class Main {
 				btnFecho.setText("Fecho Transitivo");
 				btnFecho.addListener(SWT.Selection, new Listener() {
 					public void handleEvent(Event event) {
-						
+						replot(Operacoes.FechoTransitivo(graph).getMatriz());
 					}
 				});
 				
@@ -247,11 +248,8 @@ public class Main {
 			//graphComposite.setLayout(new GridLayout());
 			graphComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 			//graphComposite.setSize(500, 350);
-			
-			
+
 			graphFrame = SWT_AWT.new_Frame(graphComposite);
-			
-				
 			
 		}catch (Exception e){
 			System.out.println(e.getMessage());
@@ -353,37 +351,12 @@ public class Main {
 		this.btnComponenteF.setEnabled(false);
 	}
 
-//import javax.swing.JFileChooser;
-//import javax.swing.JOptionPane;
-//
-//import model.Graph;
-//
-//import controller.DepthFirstSearch;
-//import controller.IOFile;
-//import controller.Operacoes;
-//import controller.Parser;
-//
-//
-//public class Main {
-//
-//	
-
 	/**
 	 * @brief Método Principal que chama a tela de ínicio.
 	 * @param args
 	 */
 	public static void main(String[] args) {
 
-//=======
-//		
-//		Graph grafo;
-//		
-//		JFileChooser fc = new JFileChooser(".");
-//		int returnVal = fc.showOpenDialog(null);
-//>>>>>>> 1c6b36658cd9da8366be5cf5c11ce0897c77ef1e
-//		
-//		
-//<<<<<<< HEAD
 		Display display = Display.getDefault();
 		Shell shell = new Shell(display);
 		shell.setText("Trabalho de Análise de Algoritmos - Grafos");
@@ -400,36 +373,6 @@ public class Main {
 			if (!display.readAndDispatch())
 				display.sleep();
 		}
-
-//=======
-//		try {
-//			IOFile io = new IOFile(fc.getSelectedFile().getAbsolutePath());
-//			io.Read();
-//			
-//			Parser parser = new Parser(io.getV(), io.getN());
-//			grafo = parser.getGrafo();
-//			grafo.printGraph();
-//			System.out.println(" ");
-//			
-//			if (Operacoes.isOrientado(grafo)) {
-//				JOptionPane.showMessageDialog(null, "O grafo é Orientado", "Tipo de Grafo", JOptionPane.INFORMATION_MESSAGE);
-//			} else {
-//				JOptionPane.showMessageDialog(null, "O grafo não é Orientado", "Tipo de Grafo", JOptionPane.INFORMATION_MESSAGE);
-//			}
-//			
-//			DepthFirstSearch dfs = new DepthFirstSearch(grafo);
-//			int[] termino = dfs.getTermino();
-//			
-//			for (int i = 0; i < grafo.getNlc(); i++)
-//				System.out.println("Vertice " + i + ":\t" + termino[i]);
-//			
-//			
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//>>>>>>> 1c6b36658cd9da8366be5cf5c11ce0897c77ef1e
 	}
 
 }
