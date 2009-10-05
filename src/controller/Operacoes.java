@@ -31,4 +31,17 @@ public class Operacoes {
 
 		return result;
 	}
+	
+	public static Graph FechoTransitivo(Graph grafo) {
+		Graph resultado = new Graph(grafo.getNlc());
+		resultado.setMatriz(grafo.getMatriz());
+		
+		for (int i = 0; i < resultado.getNlc(); i++)
+			for (int j = 0; j < resultado.getNlc(); j++)
+				for (int k = 0; j < resultado.getNlc(); k++)
+					if ((resultado.getElement(j, i) == 1) && (resultado.getElement(i, k) == 1))
+						resultado.setElement(j, k, 2);
+		
+		return resultado;		
+	}
 }

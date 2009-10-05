@@ -76,16 +76,18 @@ public class DepthFirstSearch {
 		this.dfs[u][COR] = CINZA;
 		this.dfs[u][DESCOBERTA] = ++timestamp;
 		
-		this.ciclo.add(u);
+		if (!this.temCiclo)
+			this.ciclo.add(u);
 		
 		for (int i = 0; i < grafo.getNlc(); i++) {
 			if (grafo.getElement(u, i) == 1) {
 				if (this.dfs[i][COR] == BRANCO) {
 					this.dfs[i][PREDECESSOR] = u;
 					DFS_Visit(i);
-				} else if (this.dfs[i][COR] == CINZA) {
-					this.temCiclo = true;
+				} else if ((this.dfs[i][COR] == CINZA) && !this.temCiclo) {
 					this.ciclo.add(i);
+//					if (this.ciclo.size() > 2)
+//							this.temCiclo = true;
 				}
 			}
 		}
