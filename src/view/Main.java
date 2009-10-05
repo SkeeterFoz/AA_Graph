@@ -230,7 +230,7 @@ public class Main {
 				btnComponenteF.setText("Componentes Fortemente Conexas");
 				btnComponenteF.addListener(SWT.Selection, new Listener() {
 					public void handleEvent(Event event) {
-
+						replot(Operacoes.ComponentesFortementeConexas(graph).getMatriz());
 					}
 				});
 

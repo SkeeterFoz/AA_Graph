@@ -51,7 +51,38 @@ public class DepthFirstSearch {
 	private boolean doListaCiclo;
 	
 	private ArrayList<Integer> ciclo;
+	private ArrayList<ArrayList<Integer>> componentes;
+	private boolean doComponentes; 
+	/**
+	 * @return the doComponentes
+	 */
+	public boolean isDoComponentes() {
+		return doComponentes;
+	}
+
+	/**
+	 * @param doComponentes the doComponentes to set
+	 */
+	public void setDoComponentes(boolean doComponentes) {
+		this.doComponentes = doComponentes;
+	}
+
+	private int numComponentes;
 	
+	/**
+	 * @return the componentes
+	 */
+	public ArrayList<ArrayList<Integer>> getComponentes() {
+		return componentes;
+	}
+
+	/**
+	 * @return the numComponentes
+	 */
+	public int getNumComponentes() {
+		return numComponentes;
+	}
+
 	public DepthFirstSearch(Graph grafo) {
 		this.grafo = grafo;
 		this.dfs = new int[grafo.getNlc()][4];
@@ -63,12 +94,34 @@ public class DepthFirstSearch {
 	}
 
 	public void run() {
+		if (doComponentes) {
+			this.componentes = new ArrayList<ArrayList<Integer>>();
+		}
 		for (int i = 0; i < grafo.getNlc(); i++) {
 			if (this.doListaCiclo && !this.temCiclo) {
 				this.ciclo.clear();
 			}
-			if (this.dfs[i][COR] == BRANCO) 	//Se a cor do vértice for branco 
+			if (this.dfs[i][COR] == BRANCO) {	//Se a cor do vértice for branco
+				if (doComponentes)
+					this.componentes.add(0, new ArrayList<Integer>());
 				DFS_Visit(i);
+			}
+		}
+	}
+	
+	public void run(int[] fechamento) {
+		if (doComponentes) {
+			this.componentes = new ArrayList<ArrayList<Integer>>();
+		}
+		for (int i = 0; i < fechamento.length; i++) {
+			if (this.doListaCiclo && !this.temCiclo) {
+				this.ciclo.clear();
+			}
+			if (this.dfs[i][COR] == BRANCO) { 	//Se a cor do vértice for branco
+				if (doComponentes)
+					this.componentes.add(0, new ArrayList<Integer>());
+				DFS_Visit(fechamento[i]);
+			}
 		}
 	}
 	
@@ -76,15 +129,17 @@ public class DepthFirstSearch {
 		this.dfs[u][COR] = CINZA;
 		this.dfs[u][DESCOBERTA] = ++timestamp;
 		
-		if (!this.temCiclo)
+		if (!this.temCiclo && this.doListaCiclo)
 			this.ciclo.add(u);
+		if (doComponentes)
+			this.componentes.get(0).add(u);
 		
 		for (int i = 0; i < grafo.getNlc(); i++) {
 			if (grafo.getElement(u, i) == 1) {
 				if (this.dfs[i][COR] == BRANCO) {
 					this.dfs[i][PREDECESSOR] = u;
 					DFS_Visit(i);
-				} else if ((this.dfs[i][COR] == CINZA) && !this.temCiclo) {
+				} else if ((this.dfs[i][COR] == CINZA) && !this.temCiclo && this.doListaCiclo) {
 					this.ciclo.add(i);
 //					if (this.ciclo.size() > 2)
 //							this.temCiclo = true;

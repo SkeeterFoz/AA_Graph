@@ -39,11 +39,39 @@ public class Operacoes {
 		for (int i = 0; i < resultado.getNlc(); i++)
 			for (int j = 0; j < resultado.getNlc(); j++) {
 				for (int k = 0; k < resultado.getNlc(); k++) {
-					if ((resultado.getElement(j, i) == 1) && (resultado.getElement(i, k) == 1)) {
+					if ((resultado.getElement(j, i) > 0) && (resultado.getElement(i, k) > 0)) {
 						resultado.setElement(j, k, 2);
 					}
 				}
 			}
 		return resultado;		
+	}
+	
+	public static Graph ComponentesFortementeConexas(Graph grafo) {
+		DepthFirstSearch dfs = new DepthFirstSearch(grafo);
+	
+		dfs.doListaTermino(true);
+		dfs.run();
+		ArrayList<Integer> fechamentoGrafo = dfs.getListaTermino();
+		
+		DepthFirstSearch dfsT = new DepthFirstSearch(grafo.getGraphTransposto());
+		
+		int[] fechamento = new int[fechamentoGrafo.size()];
+		for(int i = 0; i < fechamentoGrafo.size(); i++)
+			fechamento[i] = fechamentoGrafo.get(i);
+		dfsT.setDoComponentes(true);
+		dfsT.run(fechamento);
+
+		ArrayList<ArrayList<Integer>> componentes = dfsT.getComponentes();
+		
+		for (ArrayList<Integer> list:componentes) {
+			for (Integer i: list) {
+				for (int j = 0; j < grafo.getNlc(); j++) {
+					if (!list.contains(j))
+						grafo.setElement(i, j, 0);
+				}
+			}
+		}
+		return grafo;
 	}
 }
