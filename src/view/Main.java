@@ -156,7 +156,7 @@ public class Main {
 			//groupComposite.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
 			fakeComposite.setLayout(new RowLayout(SWT.BEGINNING));
 			
-			Group groupGrafo = new Group(fakeComposite, SWT.SHADOW_IN);
+			Group groupGrafo = new Group(fakeComposite, SWT.BOTTOM);
 			groupGrafo.setText("        Algoritmos Grafo       ");
 			groupGrafo.setLayout(new RowLayout(SWT.VERTICAL));
 				btnComponente = new Button(groupGrafo, SWT.NONE);
@@ -261,6 +261,7 @@ public class Main {
 		Graph graphtmp = new Graph(mtx.length);
 		graphtmp.setMatriz(mtx);
 		graphtmp.setNlc(graph.getNlc());
+		graphtmp.setOrientado(Operacoes.isOrientado(graphtmp));
 				
 		try {
 			parser.GraphToXml(graphtmp, "resultado.xml");

@@ -44,9 +44,7 @@ public class IOFile {
 				line = in.readLine();
 				nl++;
 			}
-			
-			
-			JOptionPane.showMessageDialog(null, "Numero de linhas: " + nl, "AA_Grafos", JOptionPane.INFORMATION_MESSAGE);
+				
 		} catch(IOException e) {
 			throw(new IOException("Falha de I/O no arquivo"));
 		}

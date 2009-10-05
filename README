@@ -10,15 +10,25 @@ Identificação do Sistema
 
 - Versão: 1.0
 - Sistema Operacional: GNU/Linux
-- Interface de Desenvolvimento: Eclipse Ganymede
+
+- Interface de Desenvolvimento: Eclipse Ganymede (www.eclipse.org)
+- Biblioteca Gráfica: Java SWT (www.eclipse.org/swt)
+- Software de Controle de versões: Git (www.git-scm.com)
+- Framework para Grafos: prefuse (www.prefuse.org)
+
 
 1 Objetivo do Sistema
 
-	- Carregar os dados referentes ao grado de um arquivos texto e possibilitar a realização de operações neste grafo.
+	- Carregar arquivo de entrada no formato dado de acordo com a especificação, para a memória do equipamento.
+	- Apresentação de uma interface de visualização amigável e de fácil entendimento.
+	- Através do conhecimento adquirido em Aula sobre a Teoria de Grafos, aplicação dos mesmos na implementação 
+	dos algoritmos de verificação de componentes conexas, verificação da existência de ciclos, verificação de 
+	vértices e arestas de corte e análise de bipartição para os grafos simples. Para dígrafos, os algoritmos 
+	implementados verificação de componentes fortemente conexas, fecho transitivo e ordenação topológica.
 
 2 Restrições
 
-        - Cada linha dos arquivos devem conter no máximo 255 caracteres.
+    - Cada linha dos arquivos devem conter no máximo 255 caracteres.
 	- Os arquivos não podem estar vazios;
 	- Não teclar caracteres especiais;
 	
