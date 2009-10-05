@@ -9,11 +9,9 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
@@ -196,7 +194,7 @@ public class Main {
 	
 	private void replot(byte[][] mtx)
 	{
-		Graph graphtmp = new Graph();
+		Graph graphtmp = new Graph(mtx.length);
 		graphtmp.setMatriz(mtx);
 		graphtmp.setNlc(graph.getNlc());
 				
@@ -232,17 +230,12 @@ public class Main {
 				String infile = "config.xml";
 				String label = "name";
 				
-				graph = new Graph();
-				
 				io = new IOFile(fileName);
 				io.Read();
-				System.out.println("uhet1");
-				parser = new Parser(io.getV(), io.getN(), graph);
-				System.out.println("uhet2");
-				
-				System.out.println("uhet1");
+				parser = new Parser(io.getV(), io.getN());
+				graph = parser.getGrafo();
 				parser.GraphToXml(graph, infile);
-				System.out.println("uhet2");
+				
 
 				if (panel != null){
 					graphFrame.remove(panel);
@@ -263,31 +256,86 @@ public class Main {
 			messageBox.setMessage("Erro ao abrir o arquivo" );
 		}
 	}
-
-	/**
-	 * @brief Método Principal que chama a tela de ínicio.
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		
-		
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display);
-		shell.setText("Trabalho de Análise de Algoritmos - Grafos");
-		shell.setMaximized(true);
-		Main inst = new Main(shell, SWT.NULL);
-		
-		GridLayout layout = new GridLayout(2,false);
-		
-		shell.setLayout(layout);
-		shell.layout();
-		shell.open();
-		
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-
-	}
-
 }
+
+
+//import javax.swing.JFileChooser;
+//import javax.swing.JOptionPane;
+//
+//import model.Graph;
+//
+//import controller.DepthFirstSearch;
+//import controller.IOFile;
+//import controller.Operacoes;
+//import controller.Parser;
+//
+//
+//public class Main {
+//
+//	
+//>>>>>>> 1c6b36658cd9da8366be5cf5c11ce0897c77ef1e
+//	/**
+//	 * @brief Método Principal que chama a tela de ínicio.
+//	 * @param args
+//	 */
+//	public static void main(String[] args) {
+//<<<<<<< HEAD
+//=======
+//		
+//		Graph grafo;
+//		
+//		JFileChooser fc = new JFileChooser(".");
+//		int returnVal = fc.showOpenDialog(null);
+//>>>>>>> 1c6b36658cd9da8366be5cf5c11ce0897c77ef1e
+//		
+//		
+//<<<<<<< HEAD
+//		Display display = Display.getDefault();
+//		Shell shell = new Shell(display);
+//		shell.setText("Trabalho de Análise de Algoritmos - Grafos");
+//		shell.setMaximized(true);
+//		Main inst = new Main(shell, SWT.NULL);
+//		
+//		GridLayout layout = new GridLayout(2,false);
+//		
+//		shell.setLayout(layout);
+//		shell.layout();
+//		shell.open();
+//		
+//		while (!shell.isDisposed()) {
+//			if (!display.readAndDispatch())
+//				display.sleep();
+//		}
+//
+//=======
+//		try {
+//			IOFile io = new IOFile(fc.getSelectedFile().getAbsolutePath());
+//			io.Read();
+//			
+//			Parser parser = new Parser(io.getV(), io.getN());
+//			grafo = parser.getGrafo();
+//			grafo.printGraph();
+//			System.out.println(" ");
+//			
+//			if (Operacoes.isOrientado(grafo)) {
+//				JOptionPane.showMessageDialog(null, "O grafo é Orientado", "Tipo de Grafo", JOptionPane.INFORMATION_MESSAGE);
+//			} else {
+//				JOptionPane.showMessageDialog(null, "O grafo não é Orientado", "Tipo de Grafo", JOptionPane.INFORMATION_MESSAGE);
+//			}
+//			
+//			DepthFirstSearch dfs = new DepthFirstSearch(grafo);
+//			int[] termino = dfs.getTermino();
+//			
+//			for (int i = 0; i < grafo.getNlc(); i++)
+//				System.out.println("Vertice " + i + ":\t" + termino[i]);
+//			
+//			
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//>>>>>>> 1c6b36658cd9da8366be5cf5c11ce0897c77ef1e
+//	}
+//
+//}

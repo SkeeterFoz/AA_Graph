@@ -41,8 +41,6 @@ public class IOFile {
 			line = in.readLine();
 			while(line != null) {
 				vlines[nl] = line;
-				
-				System.out.println(line);
 				line = in.readLine();
 				nl++;
 			}

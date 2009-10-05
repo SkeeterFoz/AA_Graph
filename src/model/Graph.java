@@ -1,13 +1,23 @@
 package model;
 
 public class Graph {
+	
+	/**
+	 * Matriz adjacência que representa o grafo
+	 */
 	private byte[][] matriz;
 	
 	/**
 	 * Numero de linhas e colunas
 	 */
 	private int nlc;
-
+	
+	public Graph(int nl) {
+		this.matriz = new byte[nl][nl];
+		this.nlc = nl;
+	}
+	
+	
 	/**
 	 * @return the nlc
 	 */
@@ -20,6 +30,14 @@ public class Graph {
 	 */
 	public void setNlc(int nlc) {
 		this.nlc = nlc;
+	}
+	
+	public byte getElement(int i, int j) {
+		return this.matriz[i][j];
+	}
+	
+	public void setElement(int i, int j, int valor) {
+		this.matriz[i][j] = (byte) valor;
 	}
 
 	/**
@@ -36,5 +54,19 @@ public class Graph {
 		this.matriz = matriz;
 	}
 	
+	public void printGraph() {
+		for (int i = 0; i < this.nlc; i++) {
+			for (int j = 0; j < this.nlc; j++) {
+				System.out.print(matriz[i][j]);
+				System.out.print(' ');
+			}
+			System.out.println(" ");
+		}
+	}
 	
+//	public byte[] getAdj(int i) {
+//		byte[] adj = new byte[this.nlc];
+//		
+//		return adj;
+//	}
 }

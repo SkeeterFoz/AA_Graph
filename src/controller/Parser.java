@@ -12,17 +12,31 @@ import model.Graph;
  */
 public class Parser {
 
+	private Graph grafo;
+	
+	/**
+	 * @return the grafo
+	 */
+	public Graph getGrafo() {
+		return grafo;
+	}
+
+	/**
+	 * @param grafo the grafo to set
+	 */
+	public void setGrafo(Graph grafo) {
+		this.grafo = grafo;
+	}
+
 	/**
 	 * Realiza o parser do vetor de strings passado
 	 * @param v Vetor com as strings
 	 * @param nl Numero de linhas do vetor
-	 * @param g Grafo de saida gerado pelo parser
 	 */
-	public Parser(String[] v, int nl, Graph g) {
+
+	public Parser(String[] v, int nl) {
+		this.grafo = new Graph(nl);
 	
-		byte matriz[][]; 
-		matriz = new byte[nl][nl];
-		
 		int i=0;
 
 		while (i < nl) {
@@ -35,16 +49,13 @@ public class Parser {
 				}
 					
 				if (v[i].charAt(k) == '1') {
-					matriz[i][j] = 1;
+					this.grafo.setElement(i, j, 1);
 				}
 				k++;
 				j++;
 			}
 			i++;
 		}
-	
-		g.setMatriz(matriz);
-		g.setNlc(nl);
 	}
 	
 	public void TextToGraph(String _path, Graph g) throws Exception {
@@ -94,5 +105,22 @@ public class Parser {
 	
 	}
 	
+//=======
+//			int c = 0;
+//			int tmp = 0;
+//			while (c < nl) {
+//				if (v[i].charAt(tmp) == '0') {
+//					this.grafo.setElement(i, c, 0);
+//					c++;
+//				} else if (v[i].charAt(tmp) == '1') {
+//					this.grafo.setElement(i, c, 1);
+//					c++;
+//				}
+//				tmp++;
+//			}
+//			i++;
+//		}
+//	}	
+//>>>>>>> 1c6b36658cd9da8366be5cf5c11ce0897c77ef1e
 }
 
