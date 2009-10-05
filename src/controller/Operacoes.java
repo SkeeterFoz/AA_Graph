@@ -23,8 +23,10 @@ public class Operacoes {
 	}
 	
 	public static ArrayList<Integer> OrdenacaoTopologica(Graph grafo) {
-		DepthFirstSearch dfs = new DepthFirstSearch(grafo, true);
-
+		DepthFirstSearch dfs = new DepthFirstSearch(grafo);
+		dfs.doListaTermino(true);
+		
+		dfs.run();
 		ArrayList<Integer> result = dfs.getListaTermino();
 
 		return result;

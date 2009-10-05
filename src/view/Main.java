@@ -45,7 +45,10 @@ public class Main {
 				JOptionPane.showMessageDialog(null, "O grafo não é Orientado", "Tipo de Grafo", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
-			DepthFirstSearch dfs = new DepthFirstSearch(grafo, true);
+			DepthFirstSearch dfs = new DepthFirstSearch(grafo);
+			dfs.doListaTermino(true);
+			dfs.doListaCiclo(true);
+			dfs.run();
 			int[] termino = dfs.getTermino();
 			ArrayList<Integer> lista = dfs.getListaTermino();
 			
@@ -58,7 +61,13 @@ public class Main {
 				System.out.println("Ordenação Topológica\t" + i);
 			}
 			
-			System.out.println("\nTem ciclo = " + dfs.temCiclo());
+			if (dfs.temCiclo()) {
+				System.out.println("\nTem ciclo");
+				for (Integer i: dfs.getCiclo()) {
+					System.out.println("Vertice: \t" + i);
+				}
+			}
+			
 			
 			
 		} catch (FileNotFoundException e) {
