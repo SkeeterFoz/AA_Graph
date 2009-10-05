@@ -36,14 +36,16 @@ public class IOFile {
 		this.nl = 0;
 		this.in = new BufferedReader(f);
 		
+		
 		try {
 			line = in.readLine();
 			while(line != null) {
 				vlines[nl] = line;
-//				System.out.println(line);
 				line = in.readLine();
 				nl++;
 			}
+			
+			
 			JOptionPane.showMessageDialog(null, "Numero de linhas: " + nl, "AA_Grafos", JOptionPane.INFORMATION_MESSAGE);
 		} catch(IOException e) {
 			throw(new IOException("Falha de I/O no arquivo"));

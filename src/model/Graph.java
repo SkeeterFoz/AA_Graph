@@ -12,6 +12,8 @@ public class Graph {
 	 */
 	private int nlc;
 	
+	private boolean orientado;
+	
 	public Graph(int nl) {
 		this.matriz = new byte[nl][nl];
 		this.nlc = nl;
@@ -39,6 +41,18 @@ public class Graph {
 	public void setElement(int i, int j, int valor) {
 		this.matriz[i][j] = (byte) valor;
 	}
+	
+	
+
+	public boolean isOrientado() {
+		return orientado;
+	}
+
+
+	public void setOrientado(boolean orientado) {
+		this.orientado = orientado;
+	}
+
 
 	/**
 	 * @return the matriz
