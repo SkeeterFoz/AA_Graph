@@ -56,6 +56,8 @@ public class Parser {
 			}
 			i++;
 		}
+		
+		grafo.setOrientado(Operacoes.isOrientado(grafo));
 	}
 	
 	public void TextToGraph(String _path, Graph g) throws Exception {
@@ -70,7 +72,7 @@ public class Parser {
 		
 		StringBuffer xml = new StringBuffer(
 		"<?xml version=\"1.0\" encoding=\"ISO8859-1\"?>\n<graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\">\n" + 
-		"\t<graph edgedefault=\"directed\">\n" +
+		"\t<graph edgedefault=\""+ ((g.isOrientado()) ? "directed" : "undirected")+ "\">\n" +
     	"\t<key id=\"name\" for=\"node\" attr.name=\"name\" attr.type=\"string\"/>\n" +
     	"\t<key id=\"type\" for=\"node\" attr.name=\"type\" attr.type=\"string\"/>\n" +
 		"\t<key id=\"waycolor\" for=\"edge\" attr.name=\"waycolor\" attr.type=\"string\"/>\n"

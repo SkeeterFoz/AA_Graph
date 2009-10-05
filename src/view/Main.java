@@ -9,9 +9,11 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
@@ -51,6 +53,13 @@ public class Main {
 	private java.awt.Panel panel;
 	
 	private Button btnCiclo;
+	private Button btnComponente;
+	private Button btnVcorte;
+	private Button btnAcorte;
+	private Button btnBipartido;
+	private Button btnFecho;
+	private Button btnTopologica;
+	private Button btnComponenteF;
 	
 	public Main(Composite parent, int style) {
 		this.shell = parent.getShell();
@@ -148,7 +157,14 @@ public class Main {
 			Group groupGrafo = new Group(fakeComposite, SWT.SHADOW_IN);
 			groupGrafo.setText("        Algoritmos Grafo       ");
 			groupGrafo.setLayout(new RowLayout(SWT.VERTICAL));
-				new Button(groupGrafo, 0).setText("Componentes Conexas");
+				btnComponente = new Button(groupGrafo, SWT.NONE);
+				btnComponente.setText("Componentes Conexas");
+				btnComponente.addListener(SWT.Selection, new Listener() {
+					public void handleEvent(Event event) {
+						
+					}
+				});
+				
 				btnCiclo = new Button(groupGrafo, SWT.NONE);
 				btnCiclo.setText("Ciclo");
 				btnCiclo.addListener(SWT.Selection, new Listener() {
@@ -163,20 +179,70 @@ public class Main {
 						
 					}
 				});
-				new Button(groupGrafo, 0).setText("Vértice de corte");
-				new Button(groupGrafo, 0).setText("Aresta de corte");
-				new Button(groupGrafo, 0).setText("Bipartição");
+				
+				btnVcorte = new Button(groupGrafo, SWT.NONE);
+				btnVcorte.setText("Vértice de corte");
+				btnVcorte.addListener(SWT.Selection, new Listener() {
+					public void handleEvent(Event event) {
+
+					}
+				});
+				
+				btnAcorte = new Button(groupGrafo, SWT.NONE);
+				btnAcorte.setText("Aresta de corte");
+				btnAcorte.addListener(SWT.Selection, new Listener() {
+					public void handleEvent(Event event) {
+						
+					}
+				});
+				
+				btnBipartido = new Button(groupGrafo, SWT.NONE);
+				btnBipartido.setText("Bipartição");
+				btnBipartido.addListener(SWT.Selection, new Listener() {
+					public void handleEvent(Event event) {
+						
+					}
+				});
 				
 			
 			Group groupDigrafo = new Group(fakeComposite, SWT.SHADOW_IN);
 			groupDigrafo.setText("        Algoritmos Dígrafo       ");
 			groupDigrafo.setLayout(new RowLayout(SWT.VERTICAL));
-				new Button(groupDigrafo, 0).setText("Fecho Transitivo");
-				new Button(groupDigrafo, 0).setText("Ordenação Topológica");
-				new Button(groupDigrafo, 0).setText("Componentes Fortemente Conexas");
+				
+				btnFecho = new Button(groupDigrafo, SWT.NONE);
+				btnFecho.setText("Fecho Transitivo");
+				btnFecho.addListener(SWT.Selection, new Listener() {
+					public void handleEvent(Event event) {
+						
+					}
+				});
+				
+				btnTopologica = new Button(groupDigrafo, SWT.NONE);
+				btnTopologica.setText("Ordenação Topológica");
+				btnTopologica.addListener(SWT.Selection, new Listener() {
+					public void handleEvent(Event event) {
+
+					}
+				});
+				
+				btnComponenteF = new Button(groupDigrafo, SWT.NONE);
+				btnComponenteF.setText("Componentes Fortemente Conexas");
+				btnComponenteF.addListener(SWT.Selection, new Listener() {
+					public void handleEvent(Event event) {
+
+					}
+				});
 
 				
-			
+			this.btnAcorte.setEnabled(false);
+			this.btnVcorte.setEnabled(false);
+			this.btnBipartido.setEnabled(false);
+			this.btnCiclo.setEnabled(false);
+			this.btnComponente.setEnabled(false);
+			this.btnFecho.setEnabled(false);
+			this.btnTopologica.setEnabled(false);
+			this.btnComponenteF.setEnabled(false);
+				
 			graphComposite = new Composite(shell, SWT.EMBEDDED);
 			//graphComposite.setLayout(new GridLayout());
 			graphComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -233,7 +299,13 @@ public class Main {
 				io = new IOFile(fileName);
 				io.Read();
 				parser = new Parser(io.getV(), io.getN());
+				
 				graph = parser.getGrafo();
+				if (graph.isOrientado())
+					desativaGrafo();
+				else
+					desativaDigrafo();
+				
 				parser.GraphToXml(graph, infile);
 				
 
@@ -256,8 +328,30 @@ public class Main {
 			messageBox.setMessage("Erro ao abrir o arquivo" );
 		}
 	}
-}
-
+	
+	private void desativaGrafo()
+	{
+		this.btnAcorte.setEnabled(false);
+		this.btnVcorte.setEnabled(false);
+		this.btnBipartido.setEnabled(false);
+		this.btnCiclo.setEnabled(false);
+		this.btnComponente.setEnabled(false);
+		this.btnFecho.setEnabled(true);
+		this.btnTopologica.setEnabled(true);
+		this.btnComponenteF.setEnabled(true);
+	}
+	
+	private void desativaDigrafo()
+	{
+		this.btnAcorte.setEnabled(true);
+		this.btnVcorte.setEnabled(true);
+		this.btnBipartido.setEnabled(true);
+		this.btnCiclo.setEnabled(true);
+		this.btnComponente.setEnabled(true);
+		this.btnFecho.setEnabled(false);
+		this.btnTopologica.setEnabled(false);
+		this.btnComponenteF.setEnabled(false);
+	}
 
 //import javax.swing.JFileChooser;
 //import javax.swing.JOptionPane;
@@ -273,13 +367,13 @@ public class Main {
 //public class Main {
 //
 //	
-//>>>>>>> 1c6b36658cd9da8366be5cf5c11ce0897c77ef1e
-//	/**
-//	 * @brief Método Principal que chama a tela de ínicio.
-//	 * @param args
-//	 */
-//	public static void main(String[] args) {
-//<<<<<<< HEAD
+
+	/**
+	 * @brief Método Principal que chama a tela de ínicio.
+	 * @param args
+	 */
+	public static void main(String[] args) {
+
 //=======
 //		
 //		Graph grafo;
@@ -290,23 +384,23 @@ public class Main {
 //		
 //		
 //<<<<<<< HEAD
-//		Display display = Display.getDefault();
-//		Shell shell = new Shell(display);
-//		shell.setText("Trabalho de Análise de Algoritmos - Grafos");
-//		shell.setMaximized(true);
-//		Main inst = new Main(shell, SWT.NULL);
-//		
-//		GridLayout layout = new GridLayout(2,false);
-//		
-//		shell.setLayout(layout);
-//		shell.layout();
-//		shell.open();
-//		
-//		while (!shell.isDisposed()) {
-//			if (!display.readAndDispatch())
-//				display.sleep();
-//		}
-//
+		Display display = Display.getDefault();
+		Shell shell = new Shell(display);
+		shell.setText("Trabalho de Análise de Algoritmos - Grafos");
+		shell.setMaximized(true);
+		Main inst = new Main(shell, SWT.NULL);
+		
+		GridLayout layout = new GridLayout(2,false);
+		
+		shell.setLayout(layout);
+		shell.layout();
+		shell.open();
+		
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch())
+				display.sleep();
+		}
+
 //=======
 //		try {
 //			IOFile io = new IOFile(fc.getSelectedFile().getAbsolutePath());
@@ -336,6 +430,6 @@ public class Main {
 //			e.printStackTrace();
 //		}
 //>>>>>>> 1c6b36658cd9da8366be5cf5c11ce0897c77ef1e
-//	}
-//
-//}
+	}
+
+}
