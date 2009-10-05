@@ -1,5 +1,7 @@
 package model;
 
+import controller.Operacoes;
+
 public class Graph {
 	
 	/**
@@ -76,6 +78,17 @@ public class Graph {
 			}
 			System.out.println(" ");
 		}
+	}
+	
+	public Graph getGraphTransposto() {
+		Graph gtmp = new Graph(nlc);
+		
+		for (int i=0; i < nlc; i++)
+			for (int j=0; j < nlc; j++)
+				gtmp.setElement(j, i, matriz[i][j]);
+		
+		gtmp.setOrientado(Operacoes.isOrientado(gtmp));
+		return gtmp;
 	}
 	
 //	public byte[] getAdj(int i) {
