@@ -1,4 +1,6 @@
-package controller;
+package utils;
+
+import java.util.ArrayList;
 
 import model.Graph;
 
@@ -37,9 +39,38 @@ public class DepthFirstSearch {
 	
 	private int timestamp;
 	
+	/**
+	 * Boolean que determina se será adicionado os elementos em uma lista
+	 * ao calcular o tempo de termino (utilizado na Ordenação Topológica)
+	 */
+	private boolean listTermino;
+	
+	private ArrayList<Integer> lista;
+	
+	private boolean temCiclo;
+	
 	public DepthFirstSearch(Graph grafo) {
 		this.grafo = grafo;
 		this.dfs = new int[grafo.getNlc()][4];
+		this.listTermino = false;
+		this.temCiclo = false;
+		
+		timestamp = 0;
+		
+		for (int i = 0; i < grafo.getNlc(); i++) {
+			if (this.dfs[i][COR] == BRANCO) 	//Se a cor do vértice for branco 
+				DFS_Visit(i);
+		}
+	}
+
+	public DepthFirstSearch(Graph grafo, boolean lista) {
+		this.grafo = grafo;
+		this.dfs = new int[grafo.getNlc()][4];
+		this.listTermino = lista;
+		if (this.listTermino) {
+			this.lista = new ArrayList<Integer>();
+		}
+		this.temCiclo = false;
 		
 		timestamp = 0;
 		
@@ -58,11 +89,16 @@ public class DepthFirstSearch {
 				if (this.dfs[i][COR] == BRANCO) {
 					this.dfs[i][PREDECESSOR] = u;
 					DFS_Visit(i);
+				} else if (this.dfs[i][COR] == CINZA) {
+					this.temCiclo = true;
 				}
 			}
 		}
 		this.dfs[u][COR] = PRETO;
 		this.dfs[u][TERMINO] = ++timestamp;
+		if (this.listTermino) {
+			this.lista.add(0, u);
+		}
 	}
 	
 	public int[] getTermino() {
@@ -71,5 +107,13 @@ public class DepthFirstSearch {
 			result[i] = this.dfs[i][TERMINO];
 		
 		return result;
+	}
+	
+	public ArrayList<Integer> getListaTermino() {
+		return this.lista;
+	}
+	
+	public boolean temCiclo() {
+		return this.temCiclo;
 	}
 }
