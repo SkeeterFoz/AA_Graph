@@ -1,6 +1,7 @@
 package view;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import model.Graph;
 import org.eclipse.swt.SWT;
@@ -163,7 +164,9 @@ public class Main {
 				btnComponente.setText("Componentes Conexas");
 				btnComponente.addListener(SWT.Selection, new Listener() {
 					public void handleEvent(Event event) {
-						
+						ArrayList<ArrayList<Integer>> compenentes = Operacoes.ComponentesConexas(graph);
+						for (ArrayList<Integer> i : compenentes)
+							System.out.println(i.toString());
 					}
 				});
 				
@@ -186,7 +189,7 @@ public class Main {
 				btnVcorte.setText("Vértice de corte");
 				btnVcorte.addListener(SWT.Selection, new Listener() {
 					public void handleEvent(Event event) {
-
+						replot(Operacoes.VerticesDeCorte(graph).getMatriz());
 					}
 				});
 				
@@ -194,7 +197,7 @@ public class Main {
 				btnAcorte.setText("Aresta de corte");
 				btnAcorte.addListener(SWT.Selection, new Listener() {
 					public void handleEvent(Event event) {
-						
+						replot(Operacoes.ArestasDeCorte(graph).getMatriz());	
 					}
 				});
 				
@@ -202,7 +205,10 @@ public class Main {
 				btnBipartido.setText("Bipartição");
 				btnBipartido.addListener(SWT.Selection, new Listener() {
 					public void handleEvent(Event event) {
-						
+						ArrayList<ArrayList<Integer>> compenentes = Operacoes.Biparticao(graph);
+						if (compenentes != null)
+							for (ArrayList<Integer> i : compenentes)
+								System.out.println(i.toString());
 					}
 				});
 				

@@ -91,6 +91,7 @@ public class DepthFirstSearch {
 		this.ciclo = null;
 		this.doListaCiclo = false;
 		timestamp = 0;
+		this.componentes = null;
 	}
 
 	public void run() {
@@ -135,7 +136,7 @@ public class DepthFirstSearch {
 			this.componentes.get(0).add(u);
 		
 		for (int i = 0; i < grafo.getNlc(); i++) {
-			if (grafo.getElement(u, i) == 1) {
+			if (grafo.getElement(u, i) > 0) {
 				if (this.dfs[i][COR] == BRANCO) {
 					this.dfs[i][PREDECESSOR] = u;
 					DFS_Visit(i);
