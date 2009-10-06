@@ -83,6 +83,10 @@ public class DepthFirstSearch {
 		return numComponentes;
 	}
 
+	/**
+	 * Contróia a base da classe
+	 * @param grafo Estrutura de dados que representa o grafo
+	 */
 	public DepthFirstSearch(Graph grafo) {
 		this.grafo = grafo;
 		this.dfs = new int[grafo.getNlc()][4];
@@ -94,6 +98,9 @@ public class DepthFirstSearch {
 		this.componentes = null;
 	}
 
+	/**
+	 * Executa a busca em profundidade
+	 */
 	public void run() {
 		if (doComponentes) {
 			this.componentes = new ArrayList<ArrayList<Integer>>();
@@ -110,6 +117,10 @@ public class DepthFirstSearch {
 		}
 	}
 	
+	/**
+	 * Realiza a busca em profundidade com o loop principal sendo estabelecido por uma lista dada
+	 * @param fechamento Sequência utilizada no loop princiapl
+	 */
 	public void run(int[] fechamento) {
 		if (doComponentes) {
 			this.componentes = new ArrayList<ArrayList<Integer>>();
@@ -126,6 +137,10 @@ public class DepthFirstSearch {
 		}
 	}
 	
+	/**
+	 * Exploar o vérice u
+	 * @param u vertice a ser explorado
+	 */
 	private void DFS_Visit(int u) {
 		this.dfs[u][COR] = CINZA;
 		this.dfs[u][DESCOBERTA] = ++timestamp;
@@ -154,6 +169,10 @@ public class DepthFirstSearch {
 		}
 	}
 	
+	/**
+	 * Retorna uma lista com o tempo de término dos elementos
+	 * @return a lista
+	 */
 	public int[] getTermino() {
 		int[] result = new int[grafo.getNlc()];
 		for (int i = 0; i < grafo.getNlc(); i++)

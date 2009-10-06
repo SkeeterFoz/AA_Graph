@@ -90,10 +90,4 @@ public class Graph {
 		gtmp.setOrientado(Operacoes.isOrientado(gtmp));
 		return gtmp;
 	}
-	
-//	public byte[] getAdj(int i) {
-//		byte[] adj = new byte[this.nlc];
-//		
-//		return adj;
-//	}
 }
