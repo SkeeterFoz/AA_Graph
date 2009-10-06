@@ -173,8 +173,10 @@ public class Main {
 					// evento do botão Componentes Conexas
 					public void handleEvent(Event event) {
 						ArrayList<ArrayList<Integer>> compenentes = Operacoes.ComponentesConexas(graph);
+						StringBuffer sb = new StringBuffer("Componentes Conexas: \n");
 						for (ArrayList<Integer> i : compenentes)
-							System.out.println(i.toString());
+							sb.append(i.toString() + "\n");
+						JOptionPane.showMessageDialog(null, sb);
 					}
 				});
 				
@@ -215,9 +217,14 @@ public class Main {
 					// evento do botão Bipartição
 					public void handleEvent(Event event) {
 						ArrayList<ArrayList<Integer>> compenentes = Operacoes.Biparticao(graph);
-						if (compenentes != null)
+						if (compenentes != null) {
+							StringBuffer sb = new StringBuffer("Bipartição: \n");
 							for (ArrayList<Integer> i : compenentes)
-								System.out.println(i.toString());
+								sb.append(i.toString() + "\n");
+							JOptionPane.showMessageDialog(null, sb);
+						} else {
+							JOptionPane.showMessageDialog(null, "Bipartição inexistente");
+						}
 					}
 				});
 			

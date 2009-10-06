@@ -14,7 +14,7 @@ Identificação do Sistema
 - Interface de Desenvolvimento: Eclipse Ganymede (www.eclipse.org)
 - Biblioteca Gráfica: Java SWT (www.eclipse.org/swt)
 - Software de Controle de versões: Git (www.git-scm.com)
-- Framework para Grafos: prefuse (www.prefuse.org)
+- Framework para plotagem de Grafos: prefuse (www.prefuse.org)
 
 
 1 Objetivo do Sistema
