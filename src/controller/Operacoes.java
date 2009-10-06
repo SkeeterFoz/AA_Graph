@@ -90,6 +90,26 @@ public class Operacoes {
 		return grafo;
 	}
 	
+	public static Graph Ciclo(Graph grafo) {
+		DepthFirstSearch dfs = new DepthFirstSearch(grafo);
+		
+		dfs.doListaCiclo(true);
+		dfs.run();
+		
+		if (dfs.getCiclo() != null) {
+			for (Integer i: dfs.getCiclo()) {
+				for (int j = 0; j < grafo.getNlc(); j++) {
+					if (dfs.getCiclo().contains(j)) {
+						grafo.setElement(i, j, 2);
+						grafo.setElement(j, i, 2);
+					}
+				}
+			}
+			return grafo;
+		}
+		return null;
+	}
+	
 	public static  ArrayList<ArrayList<Integer>> ComponentesConexas(Graph grafo) {
 		DepthFirstSearch dfs = new DepthFirstSearch(grafo);
 	

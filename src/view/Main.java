@@ -184,7 +184,7 @@ public class Main {
 					
 					// evento do botão Ciclo
 					public void handleEvent(Event event) {
-						
+						replot(Operacoes.Ciclo(graph).getMatriz());
 					}
 				});
 				
