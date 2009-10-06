@@ -206,7 +206,8 @@ public class Operacoes {
 			if (grafo.getElement(u, i) > 0) {
 				if (cor[i] == cor[u])
 					return false;
-				Biparticao_Visit(grafo, i, cor, cor[u]);
+				if (cor[i] == 0)
+					Biparticao_Visit(grafo, i, cor, cor[u]);
 			}
 		}
 		return true;

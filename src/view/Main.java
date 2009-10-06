@@ -1,8 +1,9 @@
 package view;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import model.Graph;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.awt.SWT_AWT;
@@ -73,6 +74,7 @@ public class Main {
 	private void initGUI() {
 		try {
 		
+			// Menu bar e itens
 			mainMenu = new Menu(shell, SWT.BAR);
 			shell.setMenuBar(mainMenu);
 				fileMenuItem = new MenuItem(mainMenu, SWT.CASCADE);
@@ -148,21 +150,27 @@ public class Main {
 				helpMenuItem.setMenu(helpMenu);
 
 						
-				
+			// Widget Composite principal da shell da swt	
 			groupComposite = new Composite(shell, SWT.NONE);
-			//groupComposite.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
+			// Setando o layout desse composite
 			groupComposite.setLayout(new FillLayout());
 			
+			// Widget Composite lado esquerdo, botões dos algoritmos
 			Composite fakeComposite = new Composite(groupComposite, SWT.BEGINNING);
-			//groupComposite.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
+			// Setando o layout desse composite
 			fakeComposite.setLayout(new RowLayout(SWT.BEGINNING));
 			
+			// Widget Group dos algoritmos para grafos
 			Group groupGrafo = new Group(fakeComposite, SWT.BOTTOM);
 			groupGrafo.setText("        Algoritmos Grafo       ");
+			// Setando o layout desse composite
 			groupGrafo.setLayout(new RowLayout(SWT.VERTICAL));
+				
 				btnComponente = new Button(groupGrafo, SWT.NONE);
 				btnComponente.setText("Componentes Conexas");
 				btnComponente.addListener(SWT.Selection, new Listener() {
+					
+					// evento do botão Componentes Conexas
 					public void handleEvent(Event event) {
 						ArrayList<ArrayList<Integer>> compenentes = Operacoes.ComponentesConexas(graph);
 						for (ArrayList<Integer> i : compenentes)
@@ -173,14 +181,9 @@ public class Main {
 				btnCiclo = new Button(groupGrafo, SWT.NONE);
 				btnCiclo.setText("Ciclo");
 				btnCiclo.addListener(SWT.Selection, new Listener() {
+					
+					// evento do botão Ciclo
 					public void handleEvent(Event event) {
-						byte[][] mtx;
-						mtx = graph.getMatriz();
-						mtx[4][3] += 1;
-						mtx[3][5] += 1;
-						mtx[5][4] += 1;
-						
-						replot(mtx);
 						
 					}
 				});
@@ -188,6 +191,8 @@ public class Main {
 				btnVcorte = new Button(groupGrafo, SWT.NONE);
 				btnVcorte.setText("Vértice de corte");
 				btnVcorte.addListener(SWT.Selection, new Listener() {
+					
+					// evento do botão Vértice de Corte
 					public void handleEvent(Event event) {
 						replot(Operacoes.VerticesDeCorte(graph).getMatriz());
 					}
@@ -196,6 +201,8 @@ public class Main {
 				btnAcorte = new Button(groupGrafo, SWT.NONE);
 				btnAcorte.setText("Aresta de corte");
 				btnAcorte.addListener(SWT.Selection, new Listener() {
+					
+					// evento do botão Aresta de Corte
 					public void handleEvent(Event event) {
 						replot(Operacoes.ArestasDeCorte(graph).getMatriz());	
 					}
@@ -204,6 +211,8 @@ public class Main {
 				btnBipartido = new Button(groupGrafo, SWT.NONE);
 				btnBipartido.setText("Bipartição");
 				btnBipartido.addListener(SWT.Selection, new Listener() {
+					
+					// evento do botão Bipartição
 					public void handleEvent(Event event) {
 						ArrayList<ArrayList<Integer>> compenentes = Operacoes.Biparticao(graph);
 						if (compenentes != null)
@@ -211,14 +220,19 @@ public class Main {
 								System.out.println(i.toString());
 					}
 				});
-				
+			
+			// Widget Group para os algoritmos de dígrafo
 			Group groupDigrafo = new Group(fakeComposite, SWT.SHADOW_IN);
 			groupDigrafo.setText("        Algoritmos Dígrafo       ");
+			
+			// setando o layout do widget
 			groupDigrafo.setLayout(new RowLayout(SWT.VERTICAL));
 				
 				btnFecho = new Button(groupDigrafo, SWT.NONE);
 				btnFecho.setText("Fecho Transitivo");
 				btnFecho.addListener(SWT.Selection, new Listener() {
+					
+					// evento do botão Fecho Transitivo
 					public void handleEvent(Event event) {
 						replot(Operacoes.FechoTransitivo(graph).getMatriz());
 					}
@@ -227,20 +241,28 @@ public class Main {
 				btnTopologica = new Button(groupDigrafo, SWT.NONE);
 				btnTopologica.setText("Ordenação Topológica");
 				btnTopologica.addListener(SWT.Selection, new Listener() {
+					
+					// evento do botão Ordenação Topológica
 					public void handleEvent(Event event) {
-
+						StringBuffer sb = new StringBuffer("Ordenação topológica é dada pelos seguintes vértices: \n");
+						for (int i=0; i < Operacoes.OrdenacaoTopologica(graph).size(); i++)
+							sb.append(Operacoes.OrdenacaoTopologica(graph).get(i)+1 + " - ");
+						JOptionPane.showMessageDialog(null, sb);
 					}
 				});
 				
 				btnComponenteF = new Button(groupDigrafo, SWT.NONE);
 				btnComponenteF.setText("Componentes Fortemente Conexas");
 				btnComponenteF.addListener(SWT.Selection, new Listener() {
+					
+					// evento do botão Componentes Fortemente Conexas
 					public void handleEvent(Event event) {
 						replot(Operacoes.ComponentesFortementeConexas(graph).getMatriz());
 					}
 				});
 
-				
+			// Setando todos os widgets de botões para falso para não poder 
+			// usa-los quando não carregado nenhum grafo	
 			this.btnAcorte.setEnabled(false);
 			this.btnVcorte.setEnabled(false);
 			this.btnBipartido.setEnabled(false);
@@ -249,12 +271,10 @@ public class Main {
 			this.btnFecho.setEnabled(false);
 			this.btnTopologica.setEnabled(false);
 			this.btnComponenteF.setEnabled(false);
-				
+			
+			// Widget Composite para a visualização do grafo gerado pelo prefuse
 			graphComposite = new Composite(shell, SWT.EMBEDDED);
-			//graphComposite.setLayout(new GridLayout());
 			graphComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
-			//graphComposite.setSize(500, 350);
-
 			graphFrame = SWT_AWT.new_Frame(graphComposite);
 			
 		}catch (Exception e){
@@ -262,6 +282,10 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * @brief Replota um grafo na tela dada uma nova matriz do grafo
+	 * @param mtx Matriz do novo grafo a ser plotado
+	 */
 	private void replot(byte[][] mtx)
 	{
 		Graph graphtmp = new Graph(mtx.length);
@@ -287,10 +311,14 @@ public class Main {
 		
 	}
 	
+	/**
+	 * @brief Método do evento abrir arquivo que chama os controladores para plotar o grafo do arquivo de entrada
+	 */
 	private void openFile()
 	{
 
 		try {
+			// Dialog para escolha do arquivo de entrada
 			FileDialog dlg = new FileDialog(shell, SWT.OPEN);
 			dlg.setFilterNames(new String[] {"txt", "Todos os arquivos (*.*)" });
 			dlg.setFilterExtensions(new String[] {"*.txt", "*.*" });
@@ -301,28 +329,36 @@ public class Main {
 				String infile = "config.xml";
 				String label = "name";
 				
+				// Ler o arquivo
 				io = new IOFile(fileName);
 				io.Read();
-				parser = new Parser(io.getV(), io.getN());
 				
+				// Realizar o parser para a estrutura de grafo
+				parser = new Parser(io.getV(), io.getN());				
 				graph = parser.getGrafo();
+				
+				// Ativar apenas botões necessários para o tipo de grafo
 				if (graph.isOrientado())
 					desativaGrafo();
 				else
 					desativaDigrafo();
 				
+				// Criar um arquivo XML para a visualização do prefuse
 				parser.GraphToXml(graph, infile);
 				
-
+				// Caso já tenha um grafo plotado, deletar
 				if (panel != null){
 					graphFrame.remove(panel);
 					panel = null;
 				}
 				
 				panel = new java.awt.Panel(new java.awt.BorderLayout());
-			    //panel.add(GraphViewEdgeDecoratorV2.demo(infile, "name", graphComposite.getSize().x, graphComposite.getSize().y));
-			    panel.add(GraphView.demo(infile, label));
+			    
+				// chamar classe de montagem da visualização do grafo
+				panel.add(GraphView.demo(infile, label));
 			    panel.setVisible(true);
+			    
+			    // adicionar e mostrar no painel o panel gerado pela GraphView
 			    graphFrame.add(panel);
 			    graphFrame.setVisible(true);
  			    
@@ -334,6 +370,9 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * @brief Desativa elementos gráficos (botões) que não devem estar ativos caso seja um dígrafo
+	 */
 	private void desativaGrafo()
 	{
 		this.btnAcorte.setEnabled(false);
@@ -346,6 +385,9 @@ public class Main {
 		this.btnComponenteF.setEnabled(true);
 	}
 	
+	/**
+	 * @brief Desativa elementos gráficos (botões) que não devem estar ativos caso seja um grafo
+	 */
 	private void desativaDigrafo()
 	{
 		this.btnAcorte.setEnabled(true);
@@ -364,6 +406,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 
+		// Criação de elementos da SWT
 		Display display = Display.getDefault();
 		Shell shell = new Shell(display);
 		shell.setText("Trabalho de Análise de Algoritmos - Grafos");
@@ -374,8 +417,11 @@ public class Main {
 		
 		shell.setLayout(layout);
 		shell.layout();
+		
+		// Abre a shell SWT
 		shell.open();
 		
+		// Verifica a disponibilidade da janela, até quando fecha-la
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch())
 				display.sleep();
